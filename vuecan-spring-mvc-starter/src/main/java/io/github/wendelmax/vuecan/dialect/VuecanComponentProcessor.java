@@ -136,8 +136,8 @@ public class VuecanComponentProcessor extends AbstractElementModelProcessor {
             props.put("preloadUrl", preloadUrl);
         }
 
-        // Vue slots implementation logic might differ subtly in the frontend 
-        // compared to React where they were merged as props, but keeping the HTML 
+        // Vue slots implementation logic might differ subtly in the frontend
+        // compared to React where they were merged as props, but keeping the HTML
         // generation similar here so the JS client handles it.
         putSlotProps(context, props, slots);
 
@@ -227,7 +227,7 @@ public class VuecanComponentProcessor extends AbstractElementModelProcessor {
 
         IModel defaultSlotContent = modelFactory.createModel();
         for (int i = 1; i < end; i++) {
-            if (!consumedIndices.contains(i)) {
+            if (!consumedIndices.contains(i) && !isVueSlotOpenOrClose(model.get(i))) {
                 defaultSlotContent.add(model.get(i));
             }
         }
@@ -504,4 +504,3 @@ public class VuecanComponentProcessor extends AbstractElementModelProcessor {
         return json.replace("'", "&#39;").replace("<", "&lt;").replace(">", "&gt;");
     }
 }
-

@@ -193,14 +193,12 @@ public record VuecanResponse<T>(
      * @param value json payload value object.
      * @return copy yielding the updated payload model.
      */
-    @SuppressWarnings("unchecked")
     public VuecanResponse<Object> with(String name, Object value) {
         java.util.Map<String, Object> newData = extractBodyAsMap();
         newData.put(name, value);
         return new VuecanResponse<>(shallowCopyEntity(newData), success, message, errors, view, context);
     }
 
-    @SuppressWarnings("unchecked")
     public VuecanResponse<Object> withAll(java.util.Map<String, ?> attributes) {
         java.util.Map<String, Object> newData = extractBodyAsMap();
         newData.putAll(attributes);

@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.wendelmax</groupId>
-        <artifactId>vuecan-spring-mvc</artifactId>
-        <version>0.1.0</version>
-        <relativePath>../../pom.xml</relativePath>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.0.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <artifactId>vuecan-spring-mvc-sample</artifactId>
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>io.github.wendelmax</groupId>
             <artifactId>vuecan-spring-mvc-starter</artifactId>
-            <version>${project.version}</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>

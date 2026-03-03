@@ -31,7 +31,8 @@ public class VuecanResponseReturnValueHandler implements HandlerMethodReturnValu
 
     private final List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
 
-    public VuecanResponseReturnValueHandler(ObjectMapper objectMapper) {
+    @SuppressWarnings("removal")
+	public VuecanResponseReturnValueHandler(ObjectMapper objectMapper) {
         this.messageConverters.add(new MappingJackson2HttpMessageConverter(objectMapper));
     }
 
