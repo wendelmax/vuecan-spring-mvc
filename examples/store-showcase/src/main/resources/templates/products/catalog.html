@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:vue="http://www.vuecan.dev/vue">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${#strings.defaultString(currentCategory, 'Products')}">Products</title>
+    <link rel="stylesheet" href="/vue/styles.css">
+    <script crossorigin src="https://unpkg.com/vue@18/umd/vue.development.js"></script>
+    <script crossorigin src="https://unpkg.com/vue-dom@18/umd/vue-dom.development.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Navbar handled by Vue or Thymeleaf? Let's do a hybrid approach -->
+        <header class="navbar glass-panel">
+            <div class="logo"
+                style="font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 0.5rem">
+                <span style="color: var(--primary)">âš›</span> Vuecan Store
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <!-- Polling component: Updates every 5s via VuecanResponse -->
+                <vue:component vue:name="LiveStatus" vue:preloadUrl="/products/api/status"
+                    vue:refetchInterval="5000" />
+            </div>
+        </header>
+
+        <div class="main-content">
+            <aside class="sidebar glass-panel">
+                <h4 style="margin-bottom: 1rem; color: var(--secondary)">Features Showcase</h4>
+                <div style="font-size: 0.875rem; color: var(--text-muted)">
+                    <p>â€¢ <strong>Hybrid:</strong> HTML mixed with Vue</p>
+                    <p>â€¢ <strong>Slots:</strong> HTM passed as prop</p>
+                    <p>â€¢ <strong>Polling:</strong> Auto-update via Java</p>
+                    <p>â€¢ <strong>Lazy:</strong> On-demand data</p>
+                </div>
+
+                <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid var(--glass-border)">
+
+                <h4 style="margin-bottom: 1rem; color: var(--secondary)">Categories</h4>
+                <ul style="list-style: none">
+                    <li><a href="/products" style="color: var(--accent); text-decoration: none">All Items</a></li>
+                </ul>
+            </aside>
+
+            <main>
+                <div style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h2 style="font-size: 2rem">Product Showcase</h2>
+                        <p style="color: var(--text-muted)">Demonstrating <strong>Slots</strong> and <strong>Hybrid
+                                Hydration</strong></p>
+                    </div>
+                </div>
+
+                <div class="product-grid">
+                    <!-- Highlighting Slots: The content inside <vue:slot> is rendered by Thymeleaf
+                         and passed as a string/element to the Vue component. -->
+                    <div th:each="product : ${products}">
+                        <vue:component vue:name="ProductCard" th:vue:product="${product}">
+                            <!-- This slot will be passed as 'slotHeader' prop -->
+                            <vue:slot vue:name="header">
+                                <span style="color: #4ade80; font-weight: bold">PROMOTION - 20% OFF</span>
+                            </vue:slot>
+
+                            <!-- Default slot (children) -->
+                            <p>Special offer only today for <strong th:text="${product.name}">Product</strong>!</p>
+                        </vue:component>
+                    </div>
+                </div>
+
+                <!-- Showcase Lazy Props & Partial Reloads -->
+                <div class="glass-panel"
+                    style="margin-top: 3rem; padding: 2rem; border-top: 4px solid var(--secondary)">
+                    <h3>Market Trends (Lazy Prop)</h3>
+                    <p style="margin-bottom: 1rem; color: var(--text-muted)">The data below is only fetched when the
+                        button is clicked, using Vuecan's Partial Reload.</p>
+
+                    <div id="trends-container">
+                        <!-- This data won't be evaluated in the initial render unless requested -->
+                        <div th:if="${marketTrends != null}" class="animate-fade-in">
+                            <p>ðŸ”¥ Trending: <strong th:text="${marketTrends.get().trending}">Trend</strong></p>
+                            <p>ðŸ“Š Demand: <span th:text="${marketTrends.get().demand}">High</span></p>
+                        </div>
+
+                        <button class="btn btn-primary" style="margin-top: 1rem" onclick="fetch(location.href, { headers: { 'X-Partial-Output': 'trends-container' } })
+                                         .then(r => r.text())
+                                         .then(html => document.getElementById('trends-container').innerHTML = html)">
+                            Load Market Data
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:vue="http://vuecan.io">
+
+<head>
+    <title>Vuecan Basics - Counter</title>
+    <script src="https://unpkg.com/vue@18/umd/vue.development.js"></script>
+    <script src="https://unpkg.com/vue-dom@18/umd/vue-dom.development.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f2f5;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card" vue:context>
+        <h1>Vuecan Basics</h1>
+        <p>This counter demonstrates <strong>useState</strong> and <strong>useEffect</strong>.</p>
+
+        <vue:component vue:name="Counter" th:vue:initialValue="${initialCount}" />
+
+        <p style="margin-top: 2rem; color: #666; font-size: 0.8rem;">
+            The initial value (10) was passed from Spring MVC.
+        </p>
+    </div>
+</body>
+
+</html>

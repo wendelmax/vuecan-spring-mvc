@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:vue="http://vuecan.io">
+
+<head>
+    <title>Vuecan - Student Details</title>
+    <script src="https://unpkg.com/vue@18/umd/vue.development.js"></script>
+    <script src="https://unpkg.com/vue-dom@18/umd/vue-dom.development.js"></script>
+    <style th:replace="~{students/index :: style}"></style>
+</head>
+
+<body>
+    <vue:context />
+    <div class="container">
+        <vue:component vue:name="StudentDetails" />
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:vue="http://vuecan.io">
+
+<head>
+    <title>Vuecan - Form Validation</title>
+    <script src="https://unpkg.com/vue@18/umd/vue.development.js"></script>
+    <script src="https://unpkg.com/vue-dom@18/umd/vue-dom.development.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            background: #fdfdfd;
+            padding: 2rem;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .info {
+            margin-bottom: 2rem;
+            border-left: 4px solid #007bff;
+            padding-left: 1rem;
+            background: #f8f9fa;
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="info">
+            <h1>Contact Support</h1>
+            <p>This form uses <strong>VuecanResponse</strong> to handle server-side validation messages seamlessly.</p>
+        </div>
+
+        <vue:component vue:name="ContactForm" />
+    </div>
+</body>
+
+</html>

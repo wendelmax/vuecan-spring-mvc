@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.wendelmax</groupId>
+        <artifactId>vuecan-spring-mvc</artifactId>
+        <version>0.1.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>vuecan-spring-mvc-sample</artifactId>
+    <name>Vuecan Spring MVC Sample</name>
+    <description>Sample application for Vuecan Spring MVC</description>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <openapi.spec.url>http://localhost:8081/v3/api-docs</openapi.spec.url>
+        <openapi-generator.version>7.12.0</openapi-generator.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.wendelmax</groupId>
+            <artifactId>vuecan-spring-mvc-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>io.github.wendelmax.vuecan.sample.SampleApplication</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator.version}</version>
+                <executions>
+                    <execution>
+                        <id>typescript-api</id>
+                        <phase>none</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${openapi.spec.url}</inputSpec>
+                            <generatorName>typescript-fetch</generatorName>
+                            <output>${project.basedir}/target/openapi-typescript</output>
+                            <configOptions>
+                                <supportsES6>true</supportsES6>
+                                <withSeparateModelsAndApi>true</withSeparateModelsAndApi>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
